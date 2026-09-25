@@ -42,8 +42,6 @@ Evaluated using **Strict Span Matching** (requiring exact start, exact end, and 
 | **Strict Micro F1** | **100.0%** | **97.1%** | 58.0% | 32.6% |
 | **Diagnostic Accuracy**| **100.0%** | **99.3%** | 87.9% | 86.2% |
 
-> *Full evaluation methodology, confusion matrices, and ablation studies are detailed in [`EVALUATION_STRATEGY_AND_METRICS.md`](EVALUATION_STRATEGY_AND_METRICS.md).*
-
 ---
 
 ## 4. How to Extend to a New PII Type
