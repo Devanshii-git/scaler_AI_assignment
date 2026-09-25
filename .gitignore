@@ -1,0 +1,32 @@
+# Bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Model weights and artifacts
+models/
+*.safetensors
+*.bin
+output/
+artifacts/
+
+# Binary documents and archives
+*.docx
+*.pdf
+*.zip
+
+# Training bundle (already packaged)
+training_package/
+
+# Environment and secrets
+.env
+.env.local
+*.pem
+*.key
+venv/
+.venv/
+
+# OS metadata
+.DS_Store
+Thumbs.db
