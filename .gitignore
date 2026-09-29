@@ -16,8 +16,9 @@ artifacts/
 *.pdf
 *.zip
 
-# Training bundle (already packaged)
+# Training bundle & friend GPU folder
 training_package/
+Devanshi/
 
 # Environment and secrets
 .env
