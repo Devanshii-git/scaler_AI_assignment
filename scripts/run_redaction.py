@@ -18,7 +18,9 @@ def main():
     parser = argparse.ArgumentParser(description="Production PII Redaction CLI")
     parser.add_argument("--input", "-i", type=str, default="Red Herring Prospectus.docx", help="Input DOCX path")
     parser.add_argument("--output", "-o", type=str, default="artifacts/output_docs/Redacted_Red_Herring_Prospectus.docx", help="Output DOCX path")
-    parser.add_argument("--model-path", type=str, default="models/gliner_multi_pii", help="Local GLiNER model path")
+    import os
+    default_model = "models/fine_tuned_gliner" if os.path.exists("models/fine_tuned_gliner") else "models/gliner_multi_pii"
+    parser.add_argument("--model-path", type=str, default=default_model, help="Local GLiNER model path")
     parser.add_argument("--no-images", action="store_true", help="Disable image redaction path")
 
     args = parser.parse_args()

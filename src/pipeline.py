@@ -37,8 +37,10 @@ class PiiRedactionPipeline:
         enable_context: bool = True,
         enable_registry: bool = True,
         enable_images: bool = True,
-        model_path: str = "models/gliner_multi_pii"
+        model_path: Optional[str] = None
     ):
+        if model_path is None:
+            model_path = "models/fine_tuned_gliner" if os.path.exists("models/fine_tuned_gliner") else "models/gliner_multi_pii"
         self.cleaner = TextCleaner()
         self.parser = DocxParser(self.cleaner)
         self.regex_detector = RegexDetector()

@@ -28,16 +28,17 @@ def main():
     print("PII REDACTION SYSTEM: EVALUATION & BENCHMARKING")
     print("==================================================")
 
+    model_path = "models/fine_tuned_gliner" if os.path.exists("models/fine_tuned_gliner") else "models/gliner_multi_pii"
     pipeline = PiiRedactionPipeline(
         enable_neural=True,
         enable_context=True,
         enable_registry=True,
         enable_images=False,
-        model_path="models/gliner_multi_pii"
+        model_path=model_path
     )
 
     runner = BenchmarkRunner(pipeline)
-    ablation_runner = AblationStudyRunner(model_path="models/gliner_multi_pii")
+    ablation_runner = AblationStudyRunner(model_path=model_path)
 
     # 1. Run Gold Prospectus Benchmark
     gold_path = "evaluation/data/gold_prospectus.jsonl"

@@ -159,9 +159,10 @@ def main():
     print("[1/3] Loading Microsoft Presidio Analyzer (spacy en_core_web_lg)...")
     presidio_analyzer = AnalyzerEngine()
 
+    model_path = "models/fine_tuned_gliner" if os.path.exists("models/fine_tuned_gliner") else "models/gliner_multi_pii"
     # 2. Initialize System B: Standalone GLiNER
-    print("[2/3] Loading Standalone GLiNER PII (urchade/gliner_multi_pii-v1)...")
-    gliner_model = GLiNER.from_pretrained("models/gliner_multi_pii")
+    print(f"[2/3] Loading Standalone GLiNER PII ({model_path})...")
+    gliner_model = GLiNER.from_pretrained(model_path)
     gliner_model.to("cpu")
     gliner_model.eval()
 
@@ -172,7 +173,7 @@ def main():
         enable_context=True,
         enable_registry=True,
         enable_images=False,
-        model_path="models/gliner_multi_pii"
+        model_path=model_path
     )
 
     print("\nRunning evaluations on the exact same benchmark...")
