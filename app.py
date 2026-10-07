@@ -332,6 +332,8 @@ async def redact_text_api(request):
             "entities": formatted_entities
         })
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return JSONResponse({"error": str(e)}, status_code=500)
 
 

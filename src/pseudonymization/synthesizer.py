@@ -52,6 +52,30 @@ class PseudonymSynthesizer:
         self.pseudonym_to_token.clear()
         self._surname_cache.clear()
 
+    def synthesize(self, text: str, spans: list) -> tuple[str, int]:
+        """
+        Replaces entity spans in the text with pseudonyms.
+        Returns the redacted text and the number of entities replaced.
+        """
+        # Sort spans in reverse order so replacements don't mess up earlier indexes
+        sorted_spans = sorted(spans, key=lambda s: s.start, reverse=True)
+        redacted_text = text
+        replaced_count = 0
+        
+        for span in sorted_spans:
+            pseudonym = self.get_or_create_pseudonym(span.type, span.text)
+            # Replace using the exact character offsets
+            redacted_text = redacted_text[:span.start] + pseudonym + redacted_text[span.end:]
+            replaced_count += 1
+            
+        return redacted_text, replaced_count
+
+    def get_cached_mapping(self, raw_text: str, entity_type: str) -> Optional[str]:
+        """Returns the cached pseudonym for a token if it exists."""
+        clean_text = raw_text.strip()
+        token = self.key_manager.generate_entity_token(entity_type, clean_text)
+        return self.token_to_pseudonym.get(token)
+
     def get_or_create_pseudonym(self, entity_type: str, raw_text: str) -> str:
         """
         Generates or retrieves a deterministic fake replacement for the given entity.
